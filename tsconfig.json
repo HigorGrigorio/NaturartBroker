@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "skipLibCheck": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./build",
+    "baseUrl": "./",
+    "moduleResolution": "node",
+    "incremental": true,
+    "esModuleInterop": true,
+    "stripInternal": true,
+    "paths": {
+      "@infra/*": ["./src/infra/*"],
+      "@core/*": ["./src/core/*"],
+      "@application/*": ["./src/application/*"],
+      "@config/*": ["./src/config/*"],
+      "@domain/*": ["./src/domain/*"],
+      "@tests/*": ["./tests/*"],
+      "@/*": ["*"],
+    }
+  }
+}
