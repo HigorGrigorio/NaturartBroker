@@ -6,7 +6,8 @@ interface NotificationError {
 }
 
 export class Notification implements DomainError {
-    constructor(private _errors: NotificationError[] = []) {}
+    constructor(private _errors: NotificationError[] = []) {
+    }
 
     get message() {
         return this._errors

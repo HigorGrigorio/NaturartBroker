@@ -1,7 +1,6 @@
-import { describe, it, expect } from '@jest/globals';
+import { describe, expect, it } from '@jest/globals';
 import { HttpClientRepository } from '@infra/repositories/http-client-repository';
 import { HttpClient } from '@infra/helpers/http-client';
-import { DomainErrorOr } from '@core/domain/domain-error-or';
 import { DomainError } from '@core/domain/errors/domain-error';
 import { Product } from '@domain/entities/product';
 

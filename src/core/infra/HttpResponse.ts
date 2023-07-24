@@ -76,8 +76,6 @@ export function fail(error: Error) {
 
     return {
         success: false,
-        body: {
-            error: error.message,
-        },
+        body: { data: `success=false;msg=${error.message}` }
     };
 }

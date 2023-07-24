@@ -1,2 +1,2 @@
-export * from './Service'
-export * from './ErrorOr'
+export * from './Service';
+export * from './ErrorOr';

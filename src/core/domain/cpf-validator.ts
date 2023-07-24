@@ -13,13 +13,6 @@ export class CPFValidator extends Validator {
         return new CPFValidator(params);
     }
 
-    private validadeMask(): Boolean {
-        const { cpf } = this.params;
-
-        const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
-        return cpfRegex.test(cpf.toLocaleLowerCase());
-    }
-
     validate(): Boolean {
         const { cpf } = this.params;
         const noAlphaNumericRegex = /[^\d]+/g;
@@ -75,5 +68,12 @@ export class CPFValidator extends Validator {
         }
 
         return true;
+    }
+
+    private validadeMask(): Boolean {
+        const { cpf } = this.params;
+
+        const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
+        return cpfRegex.test(cpf.toLocaleLowerCase());
     }
 }

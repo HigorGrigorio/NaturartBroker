@@ -4,7 +4,9 @@ import { CreateMeasurementController } from '@infra/controllers/create-measure-c
 
 export class CreateMeasurementPayload implements IPayloadHandler {
     private payload: any | null = null;
-    constructor(private createMeasureController: CreateMeasurementController) {}
+
+    constructor(private createMeasureController: CreateMeasurementController) {
+    }
 
     async handle(payload: any): Promise<void> {
         try {

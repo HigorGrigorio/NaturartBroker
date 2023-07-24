@@ -1,4 +1,4 @@
-import { Client, Email } from '@domain/entities';
+import { Client } from '@domain/entities';
 import { Client as ClientPersistence } from '@infra/api/client';
 
 export class ClientMap {
@@ -8,7 +8,6 @@ export class ClientMap {
                 name: raw.name,
                 email: raw.email,
                 cpf: raw.cpf,
-                password: raw.password,
             },
             raw.id,
         );

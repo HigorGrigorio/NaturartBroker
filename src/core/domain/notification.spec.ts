@@ -1,4 +1,4 @@
-import { describe, it, expect } from '@jest/globals';
+import { describe, expect, it } from '@jest/globals';
 import { Notification } from '@core/domain/notification';
 
 describe('Notification', () => {
@@ -22,7 +22,7 @@ describe('Notification', () => {
         }).addError({
             context: 'Error2',
             domainError: { message: 'some error' },
-        })
+        });
 
         expect(sut.message).toBe('Error1:some error,Error2:some error');
     });

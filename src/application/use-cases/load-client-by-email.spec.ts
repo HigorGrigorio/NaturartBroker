@@ -14,7 +14,7 @@ describe('Client', () => {
 
     beforeAll(async () => {
         inMemoryClientRepository = new InMemoryClientRepository();
-        inMemoryClientRepository.create(
+        await inMemoryClientRepository.create(
             makeClient({ email: 'user1@example.com' }),
         );
     });

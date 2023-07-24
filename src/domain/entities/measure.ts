@@ -8,13 +8,14 @@ export interface MeasureProps {
 }
 
 export class Measure {
-    private _id: Number;
     private constructor(
         private readonly props: MeasureProps,
         id: Maybe<Number>,
     ) {
         this._id = id ?? randomInt(9999999);
     }
+
+    private _id: Number;
 
     get id(): Number {
         return this._id;

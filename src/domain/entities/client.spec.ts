@@ -1,7 +1,6 @@
 import { InvalidCPFError, InvalidEmaiError } from '@core/domain/errors';
 import { faker } from '@faker-js/faker';
 import { describe, expect, it } from '@jest/globals';
-import { makeClient } from '@tests/factories/client-factory';
 import { makeRawCpf } from '@tests/factories/raw-cpf-factory';
 import { Client } from './client';
 

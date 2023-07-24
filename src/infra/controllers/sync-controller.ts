@@ -1,5 +1,5 @@
 import { SyncProductWithDatabase } from '@application/use-cases/sync-product-with-database';
-import { PayloadResponse, ITopic, fail, ok } from '@core/infra';
+import { fail, ITopic, ok, PayloadResponse } from '@core/infra';
 import { SyncControllerBody } from '@infra/dtos/sync-controller-body';
 import { HttpClient } from '@infra/helpers/http-client';
 import { HttpClientRepository } from '@infra/repositories/http-client-repository';
@@ -7,6 +7,13 @@ import { HttpClientRepository } from '@infra/repositories/http-client-repository
 export class SyncController extends ITopic<SyncControllerBody> {
     constructor(private syncProductWithDatabase: SyncProductWithDatabase) {
         super();
+    }
+
+    static default(): SyncController {
+        const httpClient = HttpClient.default();
+        const repository = new HttpClientRepository(httpClient);
+        const service = new SyncProductWithDatabase(repository);
+        return new SyncController(service);
     }
 
     async handle(request: SyncControllerBody): Promise<PayloadResponse> {
@@ -20,12 +27,5 @@ export class SyncController extends ITopic<SyncControllerBody> {
         }
 
         return ok(result.value);
-    }
-
-    static default(): SyncController {
-        const httpClient = HttpClient.default();
-        const repository = new HttpClientRepository(httpClient);
-        const service = new SyncProductWithDatabase(repository);
-        return new SyncController(service);
     }
 }

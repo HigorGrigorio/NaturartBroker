@@ -5,9 +5,16 @@ import { HttpClient } from '@infra/helpers/http-client';
 import { HttpMeasureRepository } from '@infra/repositories/http-measure-repository';
 
 export class CreateMeasurementController
-    implements ITopic<CreateMeasureControllerBody>
-{
-    constructor(private createMeasurementService: CreateMeasurement) {}
+    implements ITopic<CreateMeasureControllerBody> {
+    constructor(private createMeasurementService: CreateMeasurement) {
+    }
+
+    public static default() {
+        const httpClient = HttpClient.default();
+        const measureRepository = new HttpMeasureRepository(httpClient);
+        const createMeasurementService = new CreateMeasurement(measureRepository);
+        return new CreateMeasurementController(createMeasurementService);
+    }
 
     async handle(
         request: CreateMeasureControllerBody,
@@ -17,12 +24,5 @@ export class CreateMeasurementController
         });
 
         return ok(void 0);
-    }
-
-    public static default() {
-        const httpClient = HttpClient.default();
-        const measureRepository = new HttpMeasureRepository(httpClient);
-        const createMeasurementService = new CreateMeasurement(measureRepository);
-        return new CreateMeasurementController(createMeasurementService);
     }
 }

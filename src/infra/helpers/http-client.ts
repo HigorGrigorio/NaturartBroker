@@ -4,7 +4,12 @@ import { config } from '@config/axios';
 import fetch from 'cross-fetch';
 
 export class HttpClient implements IHttpClient {
-    constructor(private config: HttpClientConfig) {}
+    constructor(private config: HttpClientConfig) {
+    }
+
+    public static default(): HttpClient {
+        return new HttpClient(config);
+    }
 
     public async get<T>(url: string): Promise<T> {
         return (await fetch(config.baseURL + url)).json() as T;
@@ -20,9 +25,5 @@ export class HttpClient implements IHttpClient {
 
     public async delete<T>(url: string): Promise<T> {
         return (await fetch(config.baseURL + url)).json() as T;
-    }
-
-    public static default(): HttpClient {
-        return new HttpClient(config);
     }
 }

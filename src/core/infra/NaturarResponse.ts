@@ -1,4 +1,3 @@
-
 export interface NaturartResponse<T> {
     isError: Boolean;
     code: String;

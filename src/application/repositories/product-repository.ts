@@ -1,7 +1,4 @@
-import {
-    AsyncDomainErrorOr,
-    DomainErrorOr,
-} from '@core/domain/domain-error-or';
+import { AsyncDomainErrorOr, DomainErrorOr } from '@core/domain/domain-error-or';
 import { Product } from '@domain/entities/product';
 
 export interface IProductRepository {

@@ -1,4 +1,4 @@
-import { AsyncDomainErrorOr } from '@core/domain/domain-error-or';
+import { AsyncDomainErrorOr, DomainErrorOr } from '@core/domain/domain-error-or';
 import { NaturartResponse } from '@core/infra/NaturarResponse';
 import { IClientRepository } from '@application/repositories/client-repository';
 import { failure, success } from '@core/logic';
@@ -12,7 +12,20 @@ import { Product as ProductRaw } from '@infra/api/product';
 import { ProductMap } from '@infra/mappers/product-map';
 
 export class HttpClientRepository implements IClientRepository {
-    constructor(private httpClient: HttpClient) {}
+    constructor(private httpClient: HttpClient) {
+    }
+
+    async login(email: String, password: String): AsyncDomainErrorOr<Client> {
+        const naturartResponse = await this.httpClient.get<
+            NaturartResponse<RawClient>
+        >(`/client/login?email=${email}&password=${password}`);
+
+        if (naturartResponse.isError) {
+            return failure(DomainErrorMap.toDomain(naturartResponse));
+        }
+
+        return success(ClientMap.toDomain(naturartResponse.data));
+    }
 
     async loadProductsByEmail(email: String): AsyncDomainErrorOr<Product[]> {
         const naturartResponse = await this.httpClient.get<
@@ -40,6 +53,7 @@ export class HttpClientRepository implements IClientRepository {
         }
 
         const client = ClientMap.toDomain(naturartResponse.data);
+        console.log(client)
 
         return success(client);
     }

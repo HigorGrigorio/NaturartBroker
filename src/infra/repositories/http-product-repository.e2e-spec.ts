@@ -1,6 +1,6 @@
 import { Product } from '@domain/entities/product';
 import { HttpClient } from '@infra/helpers/http-client';
-import { describe, it, expect } from '@jest/globals';
+import { describe, expect, it } from '@jest/globals';
 import { DomainError } from '@core/domain/errors';
 import { HttpProductRepository } from './http-product-repository';
 

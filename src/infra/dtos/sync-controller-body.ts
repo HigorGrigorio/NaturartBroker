@@ -1,7 +1,6 @@
 import { CPFValidator } from '@core/domain/cpf-validator';
 import { EmailValidator } from '@core/domain/email-validator';
 import { Notification } from '@core/domain/notification';
-import { Broker } from '@infra/broker';
 
 export class SyncControllerBody {
     constructor(

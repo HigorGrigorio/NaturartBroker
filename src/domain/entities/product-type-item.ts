@@ -7,11 +7,11 @@ interface ProductTypeItemProps {
 }
 
 export class ProductTypeItem {
-    private _id: Number;
-
     constructor(private props: ProductTypeItemProps, id: Maybe<Number>) {
         this._id = id ?? randomInt(9999999);
     }
+
+    private _id: Number;
 
     get id(): Number {
         return this._id;

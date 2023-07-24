@@ -1,5 +1,5 @@
 import { InvalidCPFError } from '@core/domain/errors/invalid-cpf-error';
-import { it, expect, describe } from '@jest/globals';
+import { describe, expect, it } from '@jest/globals';
 import { CPF } from '@domain/entities/value-objects/cpf';
 
 type SutParams = { cpf: String };

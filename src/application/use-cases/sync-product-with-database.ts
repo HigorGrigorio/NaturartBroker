@@ -1,8 +1,6 @@
 import { IClientRepository } from '@application/repositories/client-repository';
-import { IProductRepository } from '@application/repositories/product-repository';
 import { failure, success } from '@core/logic';
-import { AsyncErrorOr, ErrorOr, Service } from '@core/use-cases';
-import { InvalidCredentials } from '@core/use-cases/errors/InvalidCredentials';
+import { AsyncErrorOr, Service } from '@core/use-cases';
 import { ProductNotFound } from '@core/use-cases/errors/ProductNotFound';
 import { UndefinedProducts } from '@core/use-cases/errors/UndefinedProduct';
 import { UserNotFound } from '@core/use-cases/errors/UserNotFound';
@@ -20,17 +18,16 @@ interface SyncProductWithDatabaseResponseItem {
 }
 
 interface SyncProductWithDatabaseResponse {
-    data: Array<SyncProductWithDatabaseResponseItem>;
+    data: string;
 }
 
 export class SyncProductWithDatabase
-    implements
-        Service<
-            SyncProductWithDatabaseRequest,
-            SyncProductWithDatabaseResponse
-        >
-{
-    constructor(private clientRepository: IClientRepository) {}
+    implements Service<
+        SyncProductWithDatabaseRequest,
+        SyncProductWithDatabaseResponse
+    > {
+    constructor(private clientRepository: IClientRepository) {
+    }
 
     async execute(
         request: SyncProductWithDatabaseRequest,
@@ -38,7 +35,7 @@ export class SyncProductWithDatabase
         const { email, password, cpf, serialCode } = request;
 
         // validade the client
-        const clientResult = await this.clientRepository.loadByEmail(email);
+        const clientResult = await this.clientRepository.login(email, password);
 
         if (clientResult.isFailure()) {
             return failure(new UserNotFound(clientResult.value.message));
@@ -47,14 +44,11 @@ export class SyncProductWithDatabase
         // valid client
         const { value: client } = clientResult;
 
-        // validate client credentials;
-        if (!client.checkPassword(password) || !client.cpfMatch(cpf)) {
-            return failure(new InvalidCredentials());
-        }
-
         const productResult = await this.clientRepository.loadProductsByEmail(
             email,
         );
+
+        console.log(productResult);
 
         if (productResult.isFailure()) {
             return failure(new UndefinedProducts());
@@ -71,21 +65,20 @@ export class SyncProductWithDatabase
         const { types } = product;
         const data: Array<SyncProductWithDatabaseResponseItem> = [];
 
+        let result = 'success=true;';
+
         types.forEach((type) => {
-            data.push({
-                type: type.name,
-                id: (
-                    product.items
-                        .filter(
-                            (item) =>
-                                item.idProduct === product.id &&
-                                item.idType === type.id,
-                        )
-                        .at(0) ?? { id: 0 }
-                ).id.toString(),
-            });
+            const id = product.items
+                .filter(
+                    (item) =>
+                        item.idProduct === product.id &&
+                        item.idType === type.id,
+                )
+                .at(0)?.id ?? -1;
+
+            result += `${type.name}=${id};`;
         });
 
-        return success({ data });
+        return success({ data: result });
     }
 }

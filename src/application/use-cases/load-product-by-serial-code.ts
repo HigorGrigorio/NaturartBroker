@@ -1,6 +1,6 @@
 import { IProductRepository } from '@application/repositories/product-repository';
 import { failure } from '@core/logic';
-import { AsyncErrorOr, ErrorOr, Service } from '@core/use-cases';
+import { AsyncErrorOr, Service } from '@core/use-cases';
 import { Product } from '@domain/entities/product';
 
 interface LoadProductBySerialCodeRequest {

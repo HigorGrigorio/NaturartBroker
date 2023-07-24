@@ -1,10 +1,10 @@
-import { Notification } from "@core/domain/notification";
+import { Notification } from '@core/domain/notification';
 
 export class CreateMeasureControllerBody {
     constructor(public measure: String, public idSensorTypeProduct: String) {
         const notification = this.validate();
 
-        if(notification.errors.length > 0) {
+        if (notification.errors.length > 0) {
             throw new Error(notification.message);
         }
     }

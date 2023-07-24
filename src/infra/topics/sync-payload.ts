@@ -5,10 +5,12 @@ import { SyncController } from '@infra/controllers/sync-controller';
 
 export class SyncPayload implements IPayloadHandler {
     private payload: any | null = null;
+
     constructor(
         private syncController: SyncController,
         private provider: Broker,
-    ) {}
+    ) {
+    }
 
     async handle(payload: any): Promise<void> {
         try {
@@ -21,7 +23,7 @@ export class SyncPayload implements IPayloadHandler {
             const result = await this.syncController.handle({ ...payload });
             this.provider.publish({
                 topic: uuid,
-                payload: JSON.stringify(result),
+                payload: result.body.data
             });
         } catch (err) {
             console.error(err);

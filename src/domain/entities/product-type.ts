@@ -11,10 +11,15 @@ export interface ProductTypeProps {
 export class ProductType {
     private readonly _id: Number;
     private _items: Array<ProductTypeItem> = [];
-    private _products: Array<Product> = [];
 
     private constructor(private props: ProductTypeProps, id: Maybe<Number>) {
         this._id = id ?? randomInt(9999999);
+    }
+
+    private _products: Array<Product> = [];
+
+    get products(): Readonly<Array<Product>> {
+        return this._products;
     }
 
     public get id(): Number {
@@ -69,9 +74,5 @@ export class ProductType {
         if (lastIndex > this._items.length) {
             product.removeType(this);
         }
-    }
-
-    get products(): Readonly<Array<Product>> {
-        return this._products;
     }
 }

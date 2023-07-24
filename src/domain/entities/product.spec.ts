@@ -1,4 +1,4 @@
-import { describe, it, expect } from '@jest/globals';
+import { describe, expect, it } from '@jest/globals';
 import { Product } from './product';
 import { faker } from '@faker-js/faker';
 import { makeProduct } from '@tests/factories/product-factory';

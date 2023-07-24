@@ -18,8 +18,8 @@ client.on('sync', () => {
     const payload = {
         uuid,
         email: 'higorgrigorio@gmail.com',
-        password: '12345',
-        serialCode: '12345',
+        password: '123456',
+        serialCode: '0000000001',
         cpf: '48494370871',
     };
 
@@ -27,17 +27,32 @@ client.on('sync', () => {
 });
 
 client.on('check-sync-result', () => {
-    if (!('success' in data) && !data.success) {
-        client.emit('sync-failure');
-        return;
+    let result = [data.toString()];
+
+    [';', '='].map((char) => {
+        const temp = [];
+
+        result.map((item) => {
+            temp.push(...item.split(char));
+        });
+
+        result = temp;
+    });
+
+    if (result[1] === 'true') {
+        client.emit('sync-success');
     }
-    client.emit('sync-success');
+
+    if (result[1] === 'false') {
+        console.log('Failed on sync with database.');
+        console.log('message: ' + result[3])
+        console.log('Trying again...');
+
+        client.emit('sync-failure');
+    }
 });
 
 client.on('sync-failure', () => {
-    console.log('Failed on sync with database.');
-    console.log(data);
-    console.log('Trying again...');
     client.unsubscribe(uuid);
     uuid = null;
     client.emit('sync');
@@ -61,7 +76,7 @@ client.on('send-measure', () => {
 
 client.on('message', (topic, payload) => {
     if (topic === uuid) {
-        data = JSON.parse(payload);
+        data = payload;
         client.emit('check-sync-result');
         console.log('payload: ' + payload.toString());
     }

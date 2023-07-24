@@ -8,7 +8,8 @@ interface EmailProps {
 }
 
 export class Email {
-    private constructor(private props: EmailProps) {}
+    private constructor(private props: EmailProps) {
+    }
 
     get value(): String {
         return this.props.value;

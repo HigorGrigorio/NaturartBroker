@@ -1,4 +1,3 @@
-
 /**
  * This raplace a key value into object.
  * @example

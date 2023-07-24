@@ -8,7 +8,8 @@ interface CPFProps {
 }
 
 export class CPF {
-    private constructor(private props: CPFProps) {}
+    private constructor(private props: CPFProps) {
+    }
 
     get value(): String {
         return this.props.value;

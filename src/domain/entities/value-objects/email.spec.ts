@@ -1,11 +1,11 @@
 import { describe, expect, it } from '@jest/globals';
 import { Email } from './email';
 
-type SutProps = { email: String}
+type SutProps = { email: String }
 
 const makeSut = (props: SutProps) => {
-    return Email.create({value: props.email});
-}
+    return Email.create({ value: props.email });
+};
 
 describe('Email objected value', () => {
     it('should be able to create an email', () => {
@@ -14,5 +14,5 @@ describe('Email objected value', () => {
         expect(sut.isFailure()).toBe(false);
         expect(sut.isSuccess()).toBe(true);
         expect(sut.value).toBeInstanceOf(Email);
-    })
+    });
 });

@@ -1,4 +1,3 @@
-import { SyncProductWithDatabase } from '@application/use-cases/sync-product-with-database';
 import { IPayloadHandler } from '@core/infra/PayloadHandle';
 import { Maybe } from '@core/logic';
 import { Override } from '@core/logic/Override';
@@ -6,10 +5,6 @@ import { createServer, Server } from 'node:net';
 import { adaptBroker } from './adapters/broker-adapter';
 import { CreateMeasurementController } from './controllers/create-measure-controller';
 import { SyncController } from './controllers/sync-controller';
-import { SyncControllerBody } from './dtos/sync-controller-body';
-import { HttpClient } from './helpers/http-client';
-import { HttpClientRepository } from './repositories/http-client-repository';
-import { HttpProductRepository } from './repositories/http-product-repository';
 import { CreateMeasurementPayload } from './topics/create-measure';
 import { SyncPayload } from './topics/sync-payload';
 
@@ -24,7 +19,8 @@ export type BrokerOptions = Override<AedesOptions> & {
     port: number;
 };
 
-const nop = function () {};
+const nop = function() {
+};
 
 interface Publication {
     id: String;
@@ -32,8 +28,8 @@ interface Publication {
 }
 
 class PublicationManager {
-    private readonly queue: Array<Publication> = [];
     public static TIME_STAMP: number = 3 * 1000;
+    private readonly queue: Array<Publication> = [];
 
     public exist(id: String): boolean {
         return this.queue.some((p) => p.id === id);
@@ -68,11 +64,11 @@ class PublicationManager {
 }
 
 export class Broker extends Aedes {
-    private _onListen: () => void;
     private readonly _server: Server;
     private syncPaylaodHandler: IPayloadHandler;
     private createMeasurePaylaodHandler: IPayloadHandler;
     private publicationManager: PublicationManager = new PublicationManager();
+
     private constructor(
         private readonly options: BrokerOptions,
         server: Maybe<Server>,
@@ -96,6 +92,16 @@ export class Broker extends Aedes {
         this.init();
     }
 
+    private _onListen: () => void;
+
+    get onListen(): () => void {
+        return this._onListen;
+    }
+
+    set onListen(value: () => void) {
+        this._onListen = value;
+    }
+
     static create(
         options: BrokerOptions,
         server: Maybe<Server>,
@@ -108,14 +114,6 @@ export class Broker extends Aedes {
             syncPaylaodHandler,
             measurementPaylaodHandler,
         );
-    }
-
-    get onListen(): () => void {
-        return this._onListen;
-    }
-
-    set onListen(value: () => void) {
-        this._onListen = value;
     }
 
     public listen() {
@@ -158,7 +156,6 @@ export class Broker extends Aedes {
                             );
                         }
                     } catch (err) {
-                        console.error(err);
                     }
                 }
             },

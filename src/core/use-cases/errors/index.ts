@@ -1,1 +1,1 @@
-export * from './UseCaseError'
+export * from './UseCaseError';

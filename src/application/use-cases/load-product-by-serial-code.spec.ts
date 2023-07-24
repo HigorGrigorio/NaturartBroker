@@ -1,6 +1,6 @@
 import { IProductRepository } from '@application/repositories/product-repository';
 import { Product } from '@domain/entities/product';
-import { describe, it, expect, beforeAll } from '@jest/globals';
+import { beforeAll, describe, expect, it } from '@jest/globals';
 import { makeProduct } from '@tests/factories/product-factory';
 import { InMemoryProductRepository } from '@tests/repositories/in-memory-product-repository';
 import { LoadProductBySerialCode } from './load-product-by-serial-code';

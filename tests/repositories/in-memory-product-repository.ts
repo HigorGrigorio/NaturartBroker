@@ -1,11 +1,9 @@
 import { IProductRepository } from '@application/repositories/product-repository';
 import {
     AsyncDomainErrorOr,
-    DomainErrorOr,
 } from '@core/domain/domain-error-or';
-import { failure, Left, success } from '@core/logic';
+import { failure, success } from '@core/logic';
 import { Product } from '@domain/entities/product';
-import { isForInStatement } from 'typescript';
 
 export class InMemoryProductRepository implements IProductRepository {
     private products: Array<Product> = [];

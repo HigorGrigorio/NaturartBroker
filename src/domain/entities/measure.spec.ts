@@ -1,6 +1,5 @@
-import { describe, it, expect } from '@jest/globals';
+import { describe, expect, it } from '@jest/globals';
 import { Measure } from '@domain/entities/measure';
-import { makeMeasure } from '@tests/factories/measure-factory';
 import { makeRawMeasure } from '@tests/factories/raw-measure-factory';
 
 type SutTypes = { sut: Measure };
@@ -11,7 +10,7 @@ describe('Measure', () => {
             const sut = Measure.create(
                 {
                     ...makeRawMeasure(),
-                    measurementDate: new Date()
+                    measurementDate: new Date(),
                 },
                 null,
             );

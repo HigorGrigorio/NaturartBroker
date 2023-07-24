@@ -1,5 +1,4 @@
-import { DomainErrorOr } from '@core/domain/domain-error-or';
-import { describe, it, expect, test } from '@jest/globals';
+import { describe, expect, it } from '@jest/globals';
 import { makeProduct } from '@tests/factories/product-factory';
 import { makeProductType } from '@tests/factories/product-type-factory';
 import { ProductType } from './product-type';
@@ -51,7 +50,7 @@ describe('ProductType', () => {
 
             sut.removeProduct(product);
             expect(sut.products.length).toBe(1);
-            expect(sut.products.at(0)).toEqual(product1)
+            expect(sut.products.at(0)).toEqual(product1);
         });
     });
 });

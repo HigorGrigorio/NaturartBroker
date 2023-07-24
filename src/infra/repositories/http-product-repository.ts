@@ -9,7 +9,8 @@ import { ProductMap } from '@infra/mappers/product-map';
 import { Product as RawProduct } from '@infra/api/product';
 
 export class HttpProductRepository implements IProductRepository {
-    public constructor(private httpClient: HttpClient) {}
+    public constructor(private httpClient: HttpClient) {
+    }
 
     public async loadBySerialCode(
         serialCode: String,

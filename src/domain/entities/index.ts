@@ -1,2 +1,2 @@
-export * from './client'
-export * from './value-objects'
+export * from './client';
+export * from './value-objects';
